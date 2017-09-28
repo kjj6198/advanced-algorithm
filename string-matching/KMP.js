@@ -5,6 +5,8 @@ function kmpMatcher(text, pattern) {
   const pi = computePrefixFn(pattern);
   let q = 0;
 
+  const result = [];
+
   for (let i = 0; i <= textLen - 1; i++) {
     while(q > 0 && (pattern[q] !== text[i])) {
       q = pi[q];
@@ -15,13 +17,16 @@ function kmpMatcher(text, pattern) {
     }
 
     if (q === patternLen) {
-      console.log('match at ' + (i - patternLen + 1))
+      // console.log('match at ' + (i - patternLen + 1))
+      result.push(i - patternLen + 1);
 
       q = pi[q - 1];
 
       if (typeof q === 'undefined') return ;
     }
   }
+
+  return result;
 }
 
 /**
@@ -50,3 +55,4 @@ function computePrefixFn(p) {
 
   return pi;
 }
+
